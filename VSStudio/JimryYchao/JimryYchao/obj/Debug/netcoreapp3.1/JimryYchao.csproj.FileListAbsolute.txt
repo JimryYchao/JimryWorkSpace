@@ -1,0 +1,13 @@
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\bin\Debug\netcoreapp3.1\JimryYchao.exe
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\bin\Debug\netcoreapp3.1\JimryYchao.deps.json
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\bin\Debug\netcoreapp3.1\JimryYchao.runtimeconfig.json
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\bin\Debug\netcoreapp3.1\JimryYchao.runtimeconfig.dev.json
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\bin\Debug\netcoreapp3.1\JimryYchao.dll
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\bin\Debug\netcoreapp3.1\JimryYchao.pdb
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\obj\Debug\netcoreapp3.1\JimryYchao.csprojAssemblyReference.cache
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\obj\Debug\netcoreapp3.1\JimryYchao.AssemblyInfoInputs.cache
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\obj\Debug\netcoreapp3.1\JimryYchao.AssemblyInfo.cs
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\obj\Debug\netcoreapp3.1\JimryYchao.csproj.CoreCompileInputs.cache
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\obj\Debug\netcoreapp3.1\JimryYchao.dll
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\obj\Debug\netcoreapp3.1\JimryYchao.pdb
+F:\JimryYchao工作文件夹\VSStudio\JimryYchao\JimryYchao\obj\Debug\netcoreapp3.1\JimryYchao.genruntimeconfig.cache
