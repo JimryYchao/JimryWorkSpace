@@ -15,7 +15,7 @@
 - ![图片](assets/3.2.1.png)
 - 输入pwd命令用于显示当前目录
 
-```-
+```shell
 -----
 $ pwd
 ```
@@ -24,7 +24,7 @@ $ pwd
 
 - 通过git init命令把这个目录变成Git可以管理的仓库：
 
-```-
+```shell
 -----
 $ git init
 Initialized empty Git repository in /f/新建文件夹
@@ -56,14 +56,14 @@ Initialized empty Git repository in /f/新建文件夹
 - 编写的文件需要放在库文件目录下或者子文件夹下
 - 用命令 git add添加到仓库。需要将添加的文件名称写入。
 
-```-
+```shell
 -----
 $ git add readme.txt
 ```
 
 - 用命令git commit告诉Git，把文件提交到仓库：
 
-```-
+```shell
 -----
 $ git commit -m "wrote a readme file"
 [master (root-commit) eaadf4e] wrote a readme file

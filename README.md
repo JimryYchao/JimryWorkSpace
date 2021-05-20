@@ -7,6 +7,7 @@
    - Markdown Preview Enhanced --Yiyi Wang
    - Markdown PDF --yzane
    - docs-markdown --Microsoft
+   - Markdown Mind Map Preview --Joseph Chris
 
 2. Lua
    - Lua --sumneko
@@ -28,3 +29,7 @@
    - C# --Microsoft
    - C# XML Documentation Comments --Keisuke Kato
    - Auto-Using for C# --Fudge
+
+7. Mind
+   - nane Mindmap --Season Studio
+   - Draw.io Integration --Henning Dieterichs
