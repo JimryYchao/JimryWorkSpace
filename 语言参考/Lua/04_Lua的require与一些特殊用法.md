@@ -90,12 +90,22 @@ local res = (a>b)and a or b
       ---a>b or b ---右侧true ，返回 b
 ```
 
-## 19> goto 一般在for循环种进行标签跳跃
+## 19> goto 一般在for循环中进行标签跳跃
 
 ```lua
 ---定义标签
-::finish::##这里有错误
+
+:: label ::
+---------------
+
+local a = 1
+::label:: 
+print("--- goto label ---")
+
+a = a+1
+if a < 3 then
+    goto label   -- a 小于 3 的时候跳转到标签 label
+end
 
 ```
-
 ---

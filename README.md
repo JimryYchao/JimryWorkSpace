@@ -12,7 +12,7 @@
 2. Lua
    - Lua --sumneko
    - Lua Debug --actboy163
-   - Lua Debugber --devCAT
+   - Lua Debuger --devCAT
 
 3. PDF
    - vscode-pdf --tomoke1207
@@ -25,7 +25,7 @@
    - C/C++ --Microsoft
    - C/C++ Compile Run  --danielpinto8zz6
 
-6. C# 
+6. C# a
    - C# --Microsoft
    - C# XML Documentation Comments --Keisuke Kato
    - Auto-Using for C# --Fudge

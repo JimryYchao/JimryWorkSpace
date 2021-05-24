@@ -79,7 +79,7 @@ m.func3()
 >**库的绝对路径和初始化函数**。
 
 ```lua
-local path = "/usr/local/lua/lib/libluasocket.so"
+local path = "/user/local/lua/lib/libluasocket.so"
 local f = loadlib(path, "luaopen_socket")
 ```
 
@@ -98,6 +98,8 @@ f()  -- 真正打开库
 ## 13> 元表（Metatable）
 
 - 在 Lua table 中我们可以访问对应的key来得到value值，但是却无法对两个 table 进行操作。因此 Lua 提供了元表(Metatable)，允许我们改变table的行为，每个行为关联了对应的元方法。
+- 正如其名，元表也是表。不过，将元表与表相关联后，我们就可以通过设置元表的键和相关方法来改变表的行为。
+- 元方法可以为我们修改表的操作符功能或为操作符添加新功能，使用元表中的 __index 方法，我们可以实现在表中查找键不存在时转而在元表中查找键值的功能。
 
 - 使用元表我们可以定义Lua如何计算两个table的相加操作a+b。
 
@@ -107,7 +109,7 @@ f()  -- 真正打开库
 
 ---
 
-### 13.1 setmetatable(table，metatable)
+### 13.1 setmetatable(table，metatable)，getmetatable
 
 - setmetatable(table,metatable): 对指定 table 设置元表(metatable)，如果元表(metatable)中存在 __metatable 键值，setmetatable 会失败。
 
@@ -115,7 +117,7 @@ f()  -- 真正打开库
 
 ```lua
 -----setmetatable(table,metatable)//表示将metatable表，放到table中作为嵌套表
-mytable = {}                          --子表
+mytable = {}     -- 子表
 metat = {}       -- 元表
 setmetatable(mytable,metat)  --第一个参数子表，第二个表为元表
 ```
@@ -187,12 +189,13 @@ metat.__add = function(a,b)
 - 其他运算符重载的方法
 
   - sub（-），mul（*），div（/），mod（%），pow（^），unm（负号），concat（ . . ），eq（==），lt（< ），le（<=）
+  - add（+）
 
 - 其中算术运算符要求其中一个表是元表的一个子表。
 
 - 进行逻辑运算时，要求两个均为调用元表的子表，当一个不是时，均返回false
 
-### 13.2.4 __index和__newindex元方法
+#### 13.2.4 __index和__newindex元方法
 
 - 当子表中，找不到某一个属性或值时，会到元表中找到__index，在__index指定的表中去找索引，一般__index在元表外部赋值，指定备用表。
 

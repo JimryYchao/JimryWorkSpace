@@ -4,6 +4,13 @@
     * **客户端**：用于发送命令。客户端在开发计算机上运行。您可以通过发出 adb 命令从命令行终端调用客户端。
     * **守护程序 (adbd)**：用于在设备上运行命令。守护程序在每个设备上作为后台进程运行。
     * **服务器**：用于管理客户端与守护程序之间的通信。服务器在开发机器上作为后台进程运行。
+- ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。
+>ADB主要功能有:
+
+- 在Android设备上运行Shell(命令行)；
+- 管理模拟器或设备的端口映射；
+- 在计算机和设备之间上传/下载文件；
+- 将电脑上的本地APK软件安装至Android模拟器或设备上；
 
 ---
 
@@ -119,8 +126,9 @@ $ adb install [-l|-r|-t|-s|-d|-g] path_to_apk
 $ adb -s <连接设备序列号> install [-l|-r|-t|-s|-d|-g] <path_to_apk>
 ```
 >adb install 后面可以跟一些可选参数来控制安装 APK 的行为，可用参数及含义如下
+
 |参数|含义|
-|:----:|:----|:----:|:----|
+|:----:|:----|
 |-l|将应用安装到保护目录 /mnt/asec|
 |-r|允许覆盖安装|
 |-t|允许安装 AndroidManifest.xml 里 application 指定android:testOnly="true"的应用|

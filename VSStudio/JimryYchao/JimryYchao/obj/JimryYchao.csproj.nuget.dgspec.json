@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\JimryYchao工作文件夹\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj": {}
+    "F:\\JimryYchaoWorkSpace\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj": {}
   },
   "projects": {
-    "F:\\JimryYchao工作文件夹\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj": {
+    "F:\\JimryYchaoWorkSpace\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\JimryYchao工作文件夹\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj",
+        "projectUniqueName": "F:\\JimryYchaoWorkSpace\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj",
         "projectName": "JimryYchao",
-        "projectPath": "F:\\JimryYchao工作文件夹\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj",
+        "projectPath": "F:\\JimryYchaoWorkSpace\\VSStudio\\JimryYchao\\JimryYchao\\JimryYchao.csproj",
         "packagesPath": "C:\\Users\\chao.yan\\.nuget\\packages\\",
-        "outputPath": "F:\\JimryYchao工作文件夹\\VSStudio\\JimryYchao\\JimryYchao\\obj\\",
+        "outputPath": "F:\\JimryYchaoWorkSpace\\VSStudio\\JimryYchao\\JimryYchao\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
