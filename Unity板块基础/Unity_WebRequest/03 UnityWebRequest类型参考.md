@@ -296,6 +296,253 @@ public static byte[] SerializeSimpleForm (Dictionary<string,string> formFields);
 
 //此方法将对字符串进行 URL 编码，然后将它们连接在一起，就像它们在 HTTP 查询字符串中一样。键和值将用等号 (=) 进行分隔，不同的键-值对将用与号 (&) 进行分隔。
 
+```
 ---
 
-## 2. 
+## 2. UnityWebRequest关联Web对象
+---
+### 2.1 UnityWebRequestAssetBundle
+
+- 可使用 UnityWebRequest 下载资源捆绑包的 Helpers。
+- GetAssetBundle(),创建经过优化的 UnityWebRequest，以通过 HTTP GET 下载 Unity 资源捆绑包。
+
+---
+### 2.2 UnityWebRequestAsyncOperation
+
+- 从 UnityWebRequest.SendWebRequest() 返回的异步操作对象。
+
+- 可以执行 yield 操作，直到异步操作对象继续执行，在 AsyncOperation.completed 中注册一个事件处理程序，或手动检查该对象是已完成 (AsyncOperation.isDone) 还是正在进行中 (AsyncOperation.progress)。
+
+---
+### 2.3 UnityWebRequestMultimedia
+- Helper 类，可使用 UnityWebRequest 下载多媒体文件。
+
+- GetAudioClip()，创建 UnityWebRequest，以通过 HTTP GET 下载音频剪辑并基于检索的数据创建 AudioClip。
+
+---
+### 2.4 UnityWebRequestTexture
+- 用于下载图像文件至纹理的帮助程序，可使用 UnityWebRequest。
+- GetTexture()，创建 UnityWebRequest 以通过 HTTP GET 下载图像，并基于检索的数据创建 Texture。
+
+---
+## 3. DownloadHandler
+
+- 管理和处理从远程服务器接收的 HTTP 响应体数据。
+
+- DownloadHandler 对象是 helper 对象。附加到 UnityWebRequest 后，它们会定义如何处理从远程服务器接收的 HTTP 响应体数据。通常，它们用于缓冲、流式传输和/或处理响应体。
+
+- DownloadHandler 是一个基类。可用的不同专门类将因使用场景而异。
+- 对于 Texture 和 AssetBundle 下载，DownloadHandlerBuffer 提供基本缓冲，而 DownloadHandlerTexture 和 DownloadHandlerAssetBundle 提供了更高效的解决方案。
+
+---
+### 3.1 Fields
+|||
+|:---|:---|
+|data	|返回从远程服务器下载的原始字节，或 null。（只读）|
+|isDone	|如果此 DownloadHandler 的父 UnityWebRequest 已通知它已接收所有数据，且此 DownloadHandler 已完成所有必要的下载后处理操作，则返回 true。（只读）|
+|text	|便捷属性。返回解释为 UTF8 字符串的 data 中的字节。（只读）|
+
+---
+### Public Method
+---
+#### CompleteContent
+
+```csharp
+protected void CompleteContent ();
+
+//在从远程服务器接收所有数据后调用的回调。
+
+//保证在主线程中调用此回调。如果不覆盖，此回调将没有任何默认行为，且不会执行任何操作。
+```
+---
+#### GetData
+
+```csharp
+protected byte[] GetData();
+
+//返回
+//byte[] 作为 data 属性的值返回的字节数组。
+
+//描述
+//访问 data 属性时调用的回调。此方法的返回值将作为 data 属性的值返回。将在主线程中调用此方法。如果不覆盖，此回调的默认行为是返回 null。
+```
+---
+#### GetProgress
+```csharp
+protected float GetProgress ();
+
+//回调，在UnitylebRequest时调用。访问下载进度。
+
+//将在主线程中调用此回调。
+
+//如果不覆盖，此回调的默认行为是返回 0.5。
+```
+---
+#### GetText
+```csharp
+protected string GetText ();
+
+//string 作为 text 属性的返回值返回的字符串。
+//访问 text 属性时调用的回调。此方法的返回值将作为 data 属性的值返回。将在主线程中调用此方法。
+```
+---
+#### ReceiveContentLengthHeader
+```csharp
+protected void ReceiveContentLengthHeader (ulong contentLength);
+
+//接收到使用Content-Length头调用的回调。
+```
+---
+#### ReceiveData()
+
+```csharp
+protected bool ReceiveData (byte[] data, int dataLength);
+
+//data	包含从远程服务器收到的未处理的数据的缓冲区。
+//dataLength	data 中新增的字节数。
+
+//回调，在从远程服务器接收数据时调用。
+```
+---
+## 4. DownloadHandler关联Handler
+
+---
+### 4.1 DownloadHandlerBuffer
+
+- 用于将收到的数据存储在本机字节缓冲区中的通用 DownloadHandler 实现。
+
+- 这是一个通用的 DownloadHandler 子类，用于将收到的数据存储在本机内存中。
+- 它将根据收到的任何 Content-Length 标头预分配一个数据缓冲区，但如果实际下载大小超过 Content-Length 标头的值（或者如果未收到 Content-Length 标头），则会扩展其缓冲区。
+---
+### 4.2 DownloadHandlerAssetBundle
+- DownloadHandler 的一个子类，专用于下载 AssetBundle。
+
+- 此子类会将下载的数据流式传输到工作线程上的 Unity 资源捆绑包解压和解码系统，以便高效地下载和处理 AssetBundle 对象。
+
+> 成员
+
+
+- assetBundle	返回下载的 AssetBundle 或 null。（只读）
+  
+- GetContent()，返回下载的 AssetBundle 或 null。
+
+---
+### 4.3 DownloadHandlerAudioClip
+- DownloadHandler 的一个子类，专用于下载将用作 AudioClip 对象的音频数据。
+
+- DownloadHandlerAudioClip 会将收到的数据存储在预分配的 Unity AudioClip 对象中。它已在从 Web 服务器下载音频数据方面进行了优化，可在工作线程上对音频数据进行解压和解码。
+
+- 如果您的用例需要通过 HTTP 下载音频剪辑并在 Unity 中将其用作 AudioClip，强烈建议您使用此类。
+
+> 成员
+
+- audioClip	返回下载的 AudioClip 或 null。（只读）
+- compressed	创建在内存中压缩的 AudioClip。
+- streamAudio	创建串流 AudioClip。
+
+- GetContent()	返回下载的 AudioClip 或 null。
+
+---
+### 4.4 DownloadHandlerFile
+
+- 此专用的下载处理程序会将下载的所有字节直接写入文件。
+
+- 此专用的 Download Handler 会将下载的所有字节直接写入文件。这有助于避免高内存使用量。 
+- 请注意，您无法从此下载处理程序中获取任何数据，而是需要在下载完成后使用生成的文件。
+
+> 成员
+
+- removeFileOnAbort	如果下载被中止（手动中止或因出现错误而中止），则应删除创建的文件。默认值：false。
+
+- 构造函数 在要向其写入下载数据的磁盘上创建一个新实例和一个文件。
+
+```csharp
+public DownloadHandlerFile (string path);
+public DownloadHandlerFile (string path, bool append);
+
+//path	要写入的文件的路径。
+//append	当为 true 时，将数据附加到给定文件，而不是覆盖。
+//如果无法创建文件，则抛出 ArgumentException。 如果给出了到不存在目录中的文件的路径，则会创建所有所需的目录。如果文件存在，除非是在附加模式下，否则文件将被覆盖。如果文件不存在，则无论附加标志如何，都会创建该文件。
+```
+
+---
+### 4.5 DownloadHandlerTexture
+
+- 专用于下载要用作 Texture 对象的图像的 DownloadHandler 子类。
+
+- DownloadHandlerTexture 会将收到的数据存储在预分配的 Unity Texture 对象中。该对象已经过优化，可从 Web 服务器下载图像，还可在工作线程上对图像进行解压缩和解码。
+
+- 如果您的用例需要通过 HTTP 下载图像并在 Unity 中将其用作纹理，强烈建议您使用此类。
+
+---
+### 4.6 DownloadHandlerScript
+
+- 用于用户创建的脚本驱动型 DownloadHandler 实现的抽象基类。
+
+- DownloadHandlerScript 对象本身不执行任何有意义的操作。
+
+- 相反，它将从网络中接收的数据转发给 DownloadHandler.ReceiveData 回调方法，还会为下载相关事件调用其他有用回调。
+  
+- 默认情况下，DownloadHandlerScript 不执行任何操作；不过，您可以从 DownloadHandlerScript 派生自己的子类，覆盖其部分或全部回调，从而实现完全自定义的数据处理。
+
+---
+## 5. UploadHandler
+
+- 用于 UnityWebRequest 的 helper 对象。管理 HTTP 请求期间主体数据的缓冲和传输。
+- 附加到 UnityWebRequest 后，UploadHandler 对象在 HTTP 请求期间会处理与主体数据缓冲及传输有关的所有信息。
+- 通过将数据放置在 UploadHandler 上并将此对象附加到 UnityWebRequest，隐式指示 UnityWebRequest 将 UploadHandler 的数据传输至远程服务器。此数据将始终作为 HTTP 请求主体数据传递。
+
+- UploadHandler 是一个基类，不能直接实例化。目前，仅一种类型的 Upload Handler 可用：UploadHandlerRaw。
+
+---
+### Fields
+|||
+|:--|:--|
+|contentType|	确定将使用出站 HTTP 请求传输的默认 Content-Type 标头。|
+|data|	将作为主体数据传输到远程服务器的原始数据。（只读）|
+|progress	|返回上传到远程服务器的数据在上传的数据总量中占的比例。（只读）|
+
+---
+## 6. 相关联UploadHandler
+---
+### 6.1 UploadHandlerFile
+- 专门用于从给定文件读取数据并将原始字节作为请求主体发送给服务器的 UploadHandler。
+
+- 您可以使用它向服务器发送大量数据，且占用的内存较少。
+
+```csharp
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class UHFileSample : MonoBehaviour
+{
+    void Start()
+    {
+        StartCoroutine(UploadFileData());
+    }
+
+    IEnumerator UploadFileData()
+    {
+        using (var uwr = new UnityWebRequest("http://yourwebsite.com/upload", UnityWebRequest.kHttpVerbPUT))
+        {
+            uwr.uploadHandler = new UploadHandlerFile("/path/to/file");
+            yield return uwr.SendWebRequest();
+            if (uwr.isNetworkError || uwr.isHttpError)
+                Debug.LogError(uwr.error);
+            else
+            {
+                // file data successfully sent
+            }
+        }
+    }
+}
+```
+---
+### 6.2 UploadHandlerRaw
+
+- 一般用途 UploadHandler 子类，使用的是本机代码内存缓冲区。
+
+- 该子类在构造时将输入数据复制到本机代码内存缓冲区并将此数据作为 HTTP 请求主体数据逐字传输。
+
+---
